@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-bii9ej93=*_=msyq^_z!y)at%bf5fv#e2w^-1x08)(1g*@q-i0
 DEBUG = True
 
 ALLOWED_HOSTS = []
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Application definition
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -74,11 +79,16 @@ WSGI_APPLICATION = 'notifyme.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME":os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
+
 
 
 # Password validation
