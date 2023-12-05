@@ -1,0 +1,27 @@
+version: "3.8"
+   
+services:
+  notipydb:
+    env_file: .env
+    image: bitnami/postgresql:13
+    volumes:
+      - notipydb:/var/lib/postgresql/data
+    container_name: notipydb
+    ports:
+      - 5432:5432
+
+  web:
+    build: .
+    command: ./docker-init.sh
+    restart: unless-stopped
+    volumes:
+      - .:/src
+    ports:
+      - 8000:8000
+    env_file: .env
+    depends_on:
+      - notipy
+
+volumes:
+  notipydb:
+    external: false
