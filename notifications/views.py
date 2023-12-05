@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework.generics import CreateAPIView
+from .models import Notification
+from .serializers import NotificationSerializer
 
-# Create your views here.
+class NotificationCreateAPIView(CreateAPIView):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
